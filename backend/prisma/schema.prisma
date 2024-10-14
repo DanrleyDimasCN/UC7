@@ -12,3 +12,15 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model CadastroUsuarios {
+  id String @id @default(uuid())
+  nome String
+  email String
+  senha String
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("cadastro_usuarios")
+}

@@ -1,3 +1,5 @@
+import prismaClient from "../../prisma"
+
 interface CadUsuarios {
     nome: string
     email: string
@@ -6,7 +8,14 @@ interface CadUsuarios {
 
 class UsuariosServices {
     async cadastrar_usuarios({nome, email, password}: CadUsuarios) {
-        console.log(nome, email, password);  
+        const resposta = await prismaClient.cadastroUsuarios.create({
+            data: {
+                nome: nome,
+                email: email,
+                senha: password
+            }
+        })
+        return ({dados: 'Cadastro Efetuado Com Sucesso'})
     }
 
 }
