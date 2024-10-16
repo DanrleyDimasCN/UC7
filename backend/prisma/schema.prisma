@@ -9,15 +9,18 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
-model CadastroUsuarios {
-  id String @id @default(uuid())
-  nome String
-  email String
-  senha String
+model Usuario {
+  id Int @id @default(autoincrement())
+  nome String @db.VarChar(100)
+  sobrenome String @db.VarChar(100)
+  cpf String @unique  @db.VarChar(11)
+  email String @db.VarChar(100)
+  senha String @db.VarChar(100)
+ 
 
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
