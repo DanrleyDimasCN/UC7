@@ -20,10 +20,44 @@ model Usuario {
   cpf String @unique  @db.VarChar(11)
   email String @db.VarChar(100)
   senha String @db.VarChar(100)
- 
+  lista Lista? @relation("UsuarioLista")
 
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
   @@map("cadastro_usuarios")
+}
+
+model Lista {
+  id Int @id @default(autoincrement())
+  vinhos_adicionado String @db.VarChar(50)
+  usuarioId Int @unique
+  usuario Usuario @relation("UsuarioLista", fields: [usuarioId], references: [id])
+  vinhos Vinhos[] @relation("ListaVinhos")
+  avaliacao Avaliacao[] @relation("ListaAvaliacao")
+
+  @@map("cadastro_vinhos")
+}
+
+model Vinhos {
+  id Int @id @default(autoincrement())
+  nome String @db.VarChar(100)
+  descricao String @db.Text
+  preco_medio Float
+  vinhosId Int
+  lista Lista @relation("ListaVinhos", fields: [vinhosId], references: [id])
+
+  @@map("registrar_vinhos")
+
+}
+
+model Avaliacao {
+  id Int @id @default(autoincrement())
+  nota Float?
+  favoritos Boolean?
+  comentarios String? @db.VarChar(500)
+  avaliacaoId Int
+  lista Lista @relation("ListaAvaliacao", fields: [avaliacaoId], references: [id])
+  
+  @@map("avaliacao")
 }

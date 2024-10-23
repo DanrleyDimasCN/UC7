@@ -10,6 +10,16 @@ interface CadUsuarios {
 
 class UsuariosServices {
     async cadastrar_usuarios({nome, sobrenome, email, senha, cpf}: CadUsuarios) {
+
+        const cpfExiste = await prismaClient.usuario.findFirst({
+            where: {
+                cpf: cpf
+            }
+        })
+
+        if (cpfExiste) {
+            throw new Error("CPF já está cadastrado")
+        }
         const resposta = await prismaClient.usuario.create({
             data: {
                 nome: nome,
