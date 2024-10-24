@@ -2,16 +2,14 @@ import prismaClient  from "../../prisma";
 
 interface ListaVinhos {
     vinhos_adicionado: string
-    usuarioId: number
     
 }
 
 class ListaServices {
-    async cadastro_vinhos({vinhos_adicionado, usuarioId}: ListaVinhos) {
+    async cadastro_vinhos({vinhos_adicionado}: ListaVinhos) {
         const resposta = await prismaClient.lista.create({
             data: {
                 vinhos_adicionado: vinhos_adicionado,
-                usuarioId: usuarioId
 
             }
         })
@@ -22,7 +20,6 @@ class ListaServices {
         const resposta = await prismaClient.lista.findMany({
             select: {
                 vinhos_adicionado: true,
-                usuarioId: true
             }
         })
 

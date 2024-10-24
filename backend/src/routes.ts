@@ -15,8 +15,12 @@ router.get('/ConsultarUsuarios', new UsuariosControllers().consultarUsuarios)
 router.post('/Lista', new ListaControllers().lista_vinhos)
 router.get('/ConsultarLista', new ListaControllers().consultarVinhos)
 
-// Rota - Registrar Vinhos
+// // Rota - Registrar Vinhos
 router.post('/Vinhos', new VinhosControllers().registrar_vinhos)
 router.get('/registrar', new VinhosControllers().consultarVinhos)
+
+Rota = Avaliação
+router.post('/Avaliacao' new AvaliacaoControllers().avaliar_vinhos)
+router.get('/Avaliacao' new AvaliacaoControllers().avaliar_vinhos)
 
 export default router;
