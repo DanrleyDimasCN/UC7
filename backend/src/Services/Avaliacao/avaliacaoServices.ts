@@ -18,7 +18,7 @@ class AvaliacaoServices {
         return ({dados: 'Avaliação Bem-sucedida'})
     }
 
-    async consultarVinhos () {
+    async consultar_avaliacao () {
         const resposta = await prismaClient.avaliacao.findMany({
             select: {
                 nota: true,
@@ -27,5 +27,8 @@ class AvaliacaoServices {
 
             }
         })
+        return resposta
     }
 }
+
+export { AvaliacaoServices }

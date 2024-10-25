@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { UsuariosControllers } from './Controllers/Usuarios/usuariosControllers'
 import { ListaControllers } from './Controllers/Lista/listaControlles';
 import { VinhosControllers } from './Controllers/Vinhos/vinhosControllers';
+import { AvaliacaoControllers } from './Controllers/Avaliacao/avaliacaoControllers';
 
 const router = Router();
 
@@ -19,8 +20,8 @@ router.get('/ConsultarLista', new ListaControllers().consultarVinhos)
 router.post('/Vinhos', new VinhosControllers().registrar_vinhos)
 router.get('/registrar', new VinhosControllers().consultarVinhos)
 
-Rota = Avaliação
-router.post('/Avaliacao' new AvaliacaoControllers().avaliar_vinhos)
-router.get('/Avaliacao' new AvaliacaoControllers().avaliar_vinhos)
+// Rota = Avaliação
+router.post('/Avaliacao', new AvaliacaoControllers().avaliar_vinhos)
+router.get('/ConsultarAvaliacao', new AvaliacaoControllers().consultar_avaliacao)
 
 export default router;
