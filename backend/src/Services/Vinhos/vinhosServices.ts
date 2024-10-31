@@ -4,15 +4,19 @@ interface RegVinhos {
     nome: string
     descricao: string
     preco_medio: number
+    idVinhos: number
+    idAvaliacao: number
 }
 
 class VinhosServices {
-    async registrar_vinhos ({nome, descricao, preco_medio}: RegVinhos) {
+    async registrar_vinhos ({nome, descricao, preco_medio, idVinhos, idAvaliacao}: RegVinhos) {
         const resposta = await prismaClient.vinhos.create({
             data: {
                 nome: nome,
                 descricao: descricao,
-                preco_medio: preco_medio
+                preco_medio: preco_medio,
+                idVinhos: idVinhos,
+                idAvaliacao: idAvaliacao
             }
         })
         return ({dados: 'Vinho Registrado com Sucesso'})

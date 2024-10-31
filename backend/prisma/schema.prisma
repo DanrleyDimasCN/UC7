@@ -13,6 +13,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id Int @id @default(autoincrement())
+  pseudoNome String @unique
+  senha String @unique
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("cadastro_admin")
+}
+
 model Usuario {
   id Int @id @default(autoincrement())
   nome String @db.VarChar(100)
@@ -20,6 +31,9 @@ model Usuario {
   cpf String @unique  @db.VarChar(11)
   email String @db.VarChar(100)
   senha String @db.VarChar(100)
+  
+  // Relacionamento usuario e lista
+  lista Lista? @relation("UsuarioLista")
 
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
@@ -30,6 +44,14 @@ model Usuario {
 model Lista {
   id Int @id @default(autoincrement())
   vinhos_adicionado String @db.VarChar(50)
+
+  // Relacionamento usuario e lista
+  usuario Usuario @relation("UsuarioLista", fields: [idUsuario], references: [id])
+  idUsuario Int @unique
+
+  // Relacionamento lista e vinhos
+  vinhos Vinhos[] @relation("ListaVinhos")
+
   @@map("cadastro_vinhos")
 }
 
@@ -38,9 +60,16 @@ model Vinhos {
   nome String @db.VarChar(100)
   descricao String @db.Text
   preco_medio Float
+  
+  // Relacionamento lista e vinhos
+  lista Lista @relation("ListaVinhos", fields: [idVinhos], references: [id])
+  idVinhos Int
+
+  // Relacionamento Vinhos e Avaliação
+  avaliacao Avaliacao @relation("VinhosAvaliacao", fields: [idAvaliacao], references: [id])
+  idAvaliacao Int
 
   @@map("registrar_vinhos")
-
 }
 
 model Avaliacao {
@@ -48,7 +77,9 @@ model Avaliacao {
   nota Float?
   favoritos Boolean?
   comentarios String? @db.VarChar(500)
- 
+
+  // Relacionamento Vinhos e Avaliação
+  vinhos Vinhos[] @relation("VinhosAvaliacao")
   
   @@map("avaliacao")
 }
