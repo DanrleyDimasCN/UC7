@@ -32,6 +32,9 @@ model Usuario {
   email String @db.VarChar(100)
   senha String @db.VarChar(100)
 
+  // Relacionamento entre Usuario e lista
+  lista Minha_Lista? @relation("UsuarioLista")
+
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
@@ -41,6 +44,15 @@ model Usuario {
 model Minha_Lista {
   id Int @id @default(autoincrement())
   nome String? @db.VarChar(100)
+
+  // Relacionamento entre Usuario e lista
+  usuario Usuario @relation("UsuarioLista", fields: [IdUsuario], references: [id])
+  IdUsuario Int @unique
+
+  // Relacionamento entre Minha_lista e Vinhos
+  vinhos Vinhos[] @relation("ListaVinhos")
+
+  @@map("minha_lista")
 }
 
 model Vinhos {
@@ -48,9 +60,20 @@ model Vinhos {
   nome String @db.VarChar(100)
   tipo String @db.VarChar(50)
   uva String @db.VarChar(50)
- 
+
+ // Relacionamento entre Lista e vinhos
+  lista Minha_Lista? @relation("ListaVinhos", fields: [IdLista], references: [id])
+  IdLista Int
+
   // Relacionamento entre Vinhos e Regiao
-  regiao Regiao @relation("VinhosRegiao",)
+  regiao Regiao @relation("VinhosRegiao", fields: [IdRegiao], references: [id])
+  IdRegiao Int
+
+  // Relacionamento entre Vinhos e Regiao
+  avaliacao Avaliacao @relation("VinhosAvaliacao", fields: [IdAvaliacao], references: [id])
+  IdAvaliacao Int
+
+   @@map("cadastro_vinhos")
 }
 
 model Pais {
@@ -60,42 +83,31 @@ model Pais {
   // Relacionamento entre País e Região
   regiao Regiao[] @relation("PaisRegiao")
   
+  @@map("pais")
 }
 
 model Regiao {
   id Int @id @default(autoincrement())
   nome String @db.VarChar(50)
 
+  // Relacionamento entre Vinhos e Regiao
+  vinhos Vinhos[] @relation("VinhosRegiao")
+
   // Relacionamento entre País e Região
   pais Pais @relation("PaisRegiao", fields: [idPais], references: [id])
   idPais Int
 
+@@map("regiao_cadastro")
 }
 
-//   @@map("cadastro_vinhos")
-// 
-
-// model Lista_Vinhos {
-//   id Int @id @default(autoincrement())
-//   nome String @db.VarChar(100)
-//   descricao String @db.Text
-//   preco_medio Float
+model Avaliacao {
+  id Int @id @default(autoincrement())
+  nota Float?
+  favoritos Boolean?
+  comentarios String? @db.VarChar(500)
   
-//   // Relacionamento minha_lista e lista_vinhos
-//   minha_lista Minha_Lista @relation("ListaVinhos", fields: [idVinhos], references: [id])
-//   idVinhos Int
+  vinhos Vinhos[] @relation("VinhosAvaliacao")
 
-//   @@map("registrar_vinhos")
-// }
+  @@map("avaliacao")
+}
 
-// model Avaliacao {
-//   id Int @id @default(autoincrement())
-//   nota Float?
-//   favoritos Boolean?
-//   comentarios String? @db.VarChar(500)
-
-//   // Relacionamento minha_lista e Avaliação
-//   vinhos Minha_Lista[] @relation("VinhosAvaliacao")
-  
-//   @@map("avaliacao")
-// }
