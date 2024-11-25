@@ -3,14 +3,16 @@ import { VinhosServices } from "../../Services/Vinhos/vinhosServices";
 
 class VinhosControllers {
     async registrar_vinhos(req: Request, res: Response) {
-    const {nome, descricao, preco_medio, idVinhos, idAvaliacao } = req.body
+    const {nome, tipo, uva, descricao, IdLista, IdRegiao, IdAvaliacao} = req.body
     const vinhosServices = new VinhosServices()
     const resposta = await vinhosServices.registrar_vinhos({
         nome,
+        tipo,
+        uva,
         descricao,
-        preco_medio,
-        idVinhos,
-        idAvaliacao
+        IdLista,
+        IdRegiao,
+        IdAvaliacao
     })
     return res.json(resposta) 
 }

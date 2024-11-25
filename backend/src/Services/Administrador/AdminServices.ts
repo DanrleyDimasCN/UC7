@@ -1,12 +1,12 @@
 import prismaClient from "../../prisma";
 
-interface CadAdmin {
+interface AdminType {
     pseudoNome: string
     senha: string
 }
 
 class AdminServices {
-    async cadastrar_admin({pseudoNome, senha}: CadAdmin) {
+    async cadastrar_admin({pseudoNome, senha}: AdminType) {
         const resposta = await prismaClient.admin.create({
             data: {
                 pseudoNome: pseudoNome,

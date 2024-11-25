@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { AdminServices } from "../../Services/Administrador/AdminServices";
 
 class AdminControllers {
-    async cadastro_admin(req: Request, res: Response) {
+    async cadastrar_admin(req: Request, res: Response) {
         const {pseudoNome, senha} = req.body
         const adminServices = new AdminServices()
         const resposta = await adminServices.cadastrar_admin({

@@ -3,13 +3,14 @@ import prismaClient from "../../prisma"
 interface CadUsuarios {
     nome: string
     sobrenome: string
+    cpf: string
     email: string
     senha: string
-    cpf: string
+   
 }
 
 class UsuariosServices {
-    async cadastrar_usuarios({nome, sobrenome, email, senha, cpf}: CadUsuarios) {
+    async cadastrar_usuarios({nome, sobrenome, cpf, email, senha}: CadUsuarios) {
 
         const cpfExiste = await prismaClient.usuario.findFirst({
             where: {
@@ -37,8 +38,8 @@ class UsuariosServices {
             select: {
                 nome:true,
                 sobrenome: true,
-                email: true,
-                cpf: true
+                cpf: true,
+                email: true
             }
         })
 

@@ -52,7 +52,7 @@ model Minha_Lista {
   // Relacionamento entre Minha_lista e Vinhos
   vinhos Vinhos[] @relation("ListaVinhos")
 
-  @@map("minha_lista")
+  @@map("cadastro_minha_lista")
 }
 
 model Vinhos {
@@ -60,6 +60,7 @@ model Vinhos {
   nome String @db.VarChar(100)
   tipo String @db.VarChar(50)
   uva String @db.VarChar(50)
+  descricao String @db.VarChar(300)
 
  // Relacionamento entre Lista e vinhos
   lista Minha_Lista? @relation("ListaVinhos", fields: [IdLista], references: [id])
@@ -83,7 +84,7 @@ model Pais {
   // Relacionamento entre País e Região
   regiao Regiao[] @relation("PaisRegiao")
   
-  @@map("pais")
+  @@map("cadastro_pais")
 }
 
 model Regiao {
@@ -94,10 +95,10 @@ model Regiao {
   vinhos Vinhos[] @relation("VinhosRegiao")
 
   // Relacionamento entre País e Região
-  pais Pais @relation("PaisRegiao", fields: [idPais], references: [id])
-  idPais Int
+  pais Pais @relation("PaisRegiao", fields: [IdPais], references: [id])
+  IdPais Int
 
-@@map("regiao_cadastro")
+@@map("cadastro_regiao")
 }
 
 model Avaliacao {
@@ -108,6 +109,6 @@ model Avaliacao {
   
   vinhos Vinhos[] @relation("VinhosAvaliacao")
 
-  @@map("avaliacao")
+  @@map("cadastro_avaliacao")
 }
 

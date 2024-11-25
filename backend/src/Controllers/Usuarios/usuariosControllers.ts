@@ -17,7 +17,6 @@ class UsuariosControllers {
     }
 
     async consultarUsuarios(req: Request, res: Response) {
-
         const usuariosServices = new UsuariosServices()
         const resposta = await usuariosServices.consultarUsuarios()
 

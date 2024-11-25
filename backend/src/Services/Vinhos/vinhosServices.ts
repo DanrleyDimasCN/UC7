@@ -2,21 +2,25 @@ import prismaClient from "../../prisma";
 
 interface RegVinhos {
     nome: string
+    tipo: string
+    uva: string
     descricao: string
-    preco_medio: number
-    idVinhos: number
-    idAvaliacao: number
+    IdLista: number
+    IdRegiao: number
+    IdAvaliacao: number
 }
 
 class VinhosServices {
-    async registrar_vinhos ({nome, descricao, preco_medio, idVinhos, idAvaliacao}: RegVinhos) {
+    async registrar_vinhos ({nome, tipo, uva ,descricao, IdLista, IdRegiao, IdAvaliacao}: RegVinhos) {
         const resposta = await prismaClient.vinhos.create({
             data: {
                 nome: nome,
+                tipo: tipo,
+                uva: uva,
                 descricao: descricao,
-                preco_medio: preco_medio,
-                idVinhos: idVinhos,
-                idAvaliacao: idAvaliacao
+                IdLista: IdLista,
+                IdRegiao: IdRegiao,
+                IdAvaliacao: IdAvaliacao
             }
         })
         return ({dados: 'Vinho Registrado com Sucesso'})
@@ -26,8 +30,9 @@ class VinhosServices {
         const resposta = await prismaClient.vinhos.findMany({
             select: {
                 nome: true,
-                descricao: true,
-                preco_medio: true
+                tipo: true,
+                uva: true,
+                descricao: true
             }
         })
         return resposta
