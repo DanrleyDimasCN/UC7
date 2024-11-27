@@ -23,6 +23,25 @@ class UsuariosControllers {
         return res.json(resposta)
     }
 
+    async alterarDadosUsuarios(req: Request, res: Response) {
+        const { id, nome, email } = req.body
+        const enviardadosServices = new UsuariosServices()
+        const resposta = await enviardadosServices.alterarDadosUsuarios({
+            id,
+            nome,
+            email
+        })
+
+        return res.json(resposta)
+    }
+
+    async apagarUsuarios(req: Request, res: Response) {
+        const { id } = req.params
+        const enviardadosServices = new UsuariosServices()
+        const resposta = await enviardadosServices.apagarUsuarios(id)
+        return res.json(resposta)
+    }
+
     
 }
 

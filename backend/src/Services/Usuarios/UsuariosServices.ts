@@ -8,6 +8,11 @@ interface CadUsuarios {
     senha: string
    
 }
+interface AlterarUsuarios {
+    id: number
+    nome: string
+    email: string
+}
 
 class UsuariosServices {
     async cadastrar_usuarios({nome, sobrenome, cpf, email, senha}: CadUsuarios) {
@@ -44,6 +49,28 @@ class UsuariosServices {
         })
 
         return resposta
+    }
+
+    async alterarDadosUsuarios({id, nome, email}: AlterarUsuarios) {
+        const resposta = await prismaClient.usuario.update({
+            where: {
+                id: id
+            },
+
+            data: {
+                nome: nome,
+                email: email
+            }
+        })
+    }
+
+    async apagarUsuarios(id: number) {
+        await prismaClient.usuario.delete({
+            where: {
+                id: id
+            }
+        })
+        return ({dados: "Registro Apagado com Sucesso"})
     }
 
 }

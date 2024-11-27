@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Inicio from '../Inicio'
+import CadastrarUsuario from '../CadastrarUsuario'
 
 export default function NAutenticado() {
     return (

@@ -16,6 +16,8 @@ router.get('/ConsultarAdmin', new AdminControllers().consultarAdmin)
 // Rota - Cadastrar Usuarios
 router.post('/CadastrarUsuario', new UsuariosControllers().cadastro_usuarios)
 router.get('/ConsultarUsuarios', new UsuariosControllers().consultarUsuarios)
+router.put('/AlterarDadosUsuarios', new UsuariosControllers().alterarDadosUsuarios)
+router.delete('/ApagarUsuarios/:id', new UsuariosControllers().apagarUsuarios)
 
 // Rota - Adicionar pais e consultar pais
 router.post('/CadastrarPais', new PaisControllers().cadastrar_pais)
