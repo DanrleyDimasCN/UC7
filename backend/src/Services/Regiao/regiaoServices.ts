@@ -19,7 +19,8 @@ class RegiaoServices {
     async consultar_regiao() {
         const resposta = await prismaClient.regiao.findMany({
             select: {
-                nome: true
+                nome: true,
+                id: true
             }
         })
         return resposta

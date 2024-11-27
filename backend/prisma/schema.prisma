@@ -61,6 +61,7 @@ model Vinhos {
   tipo String @db.VarChar(50)
   uva String @db.VarChar(50)
   descricao String @db.VarChar(300)
+  nota Float? 
 
  // Relacionamento entre Lista e vinhos
   lista Minha_Lista? @relation("ListaVinhos", fields: [IdLista], references: [id])
@@ -70,16 +71,12 @@ model Vinhos {
   regiao Regiao @relation("VinhosRegiao", fields: [IdRegiao], references: [id])
   IdRegiao Int
 
-  // Relacionamento entre Vinhos e Regiao
-  avaliacao Avaliacao @relation("VinhosAvaliacao", fields: [IdAvaliacao], references: [id])
-  IdAvaliacao Int
-
    @@map("cadastro_vinhos")
 }
 
 model Pais {
   id Int @id @default(autoincrement())
-  nome String @db.VarChar(50)
+  nome String @unique @db.VarChar(50)
 
   // Relacionamento entre País e Região
   regiao Regiao[] @relation("PaisRegiao")
@@ -89,7 +86,7 @@ model Pais {
 
 model Regiao {
   id Int @id @default(autoincrement())
-  nome String @db.VarChar(50)
+  nome String @unique @db.VarChar(50)
 
   // Relacionamento entre Vinhos e Regiao
   vinhos Vinhos[] @relation("VinhosRegiao")
@@ -100,15 +97,3 @@ model Regiao {
 
 @@map("cadastro_regiao")
 }
-
-model Avaliacao {
-  id Int @id @default(autoincrement())
-  nota Float?
-  favoritos Boolean?
-  comentarios String? @db.VarChar(500)
-  
-  vinhos Vinhos[] @relation("VinhosAvaliacao")
-
-  @@map("cadastro_avaliacao")
-}
-

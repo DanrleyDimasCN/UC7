@@ -5,22 +5,22 @@ interface RegVinhos {
     tipo: string
     uva: string
     descricao: string
+    nota: number
     IdLista: number
     IdRegiao: number
-    IdAvaliacao: number
 }
 
 class VinhosServices {
-    async registrar_vinhos ({nome, tipo, uva ,descricao, IdLista, IdRegiao, IdAvaliacao}: RegVinhos) {
+    async registrar_vinhos ({nome, tipo, uva ,descricao, nota, IdLista, IdRegiao}: RegVinhos) {
         const resposta = await prismaClient.vinhos.create({
             data: {
                 nome: nome,
                 tipo: tipo,
                 uva: uva,
                 descricao: descricao,
+                nota: nota,
                 IdLista: IdLista,
                 IdRegiao: IdRegiao,
-                IdAvaliacao: IdAvaliacao
             }
         })
         return ({dados: 'Vinho Registrado com Sucesso'})
@@ -32,7 +32,8 @@ class VinhosServices {
                 nome: true,
                 tipo: true,
                 uva: true,
-                descricao: true
+                descricao: true,
+                nota: true
             }
         })
         return resposta

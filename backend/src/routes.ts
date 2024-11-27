@@ -3,7 +3,6 @@ import { Router } from 'express';
 import { UsuariosControllers } from './Controllers/Usuarios/usuariosControllers'
 import { ListaControllers } from './Controllers/Lista/listaControlles';
 import { VinhosControllers } from './Controllers/Vinhos/vinhosControllers';
-import { AvaliacaoControllers } from './Controllers/Avaliacao/avaliacaoControllers';
 import { AdminControllers } from './Controllers/Administrador/AdminControllers';
 import { PaisControllers } from './Controllers/Pais/paisControllers';
 import { RegiaoControllers } from './Controllers/Regiao/regiaoControllers';
@@ -18,24 +17,20 @@ router.get('/ConsultarAdmin', new AdminControllers().consultarAdmin)
 router.post('/CadastrarUsuario', new UsuariosControllers().cadastro_usuarios)
 router.get('/ConsultarUsuarios', new UsuariosControllers().consultarUsuarios)
 
-// Rota - Adicionar e consultar Vinhos
-router.post('/CadastrarLista', new ListaControllers().lista_vinhos)
-router.get('/ConsultarLista', new ListaControllers().consultarVinhos)
-
 // Rota - Adicionar pais e consultar pais
-router.post('CadastrarPais', new PaisControllers().cadastrar_pais)
-router.get('ConsultarPais', new PaisControllers().consultar_pais)
-
-// Regiao - adicionar Regiao e consultar regiao
-router.post('CadastrarRegiao', new RegiaoControllers().reg_regiao)
-router.get('ConsutarRegiao', new RegiaoControllers().consultar_regiao)
+router.post('/CadastrarPais', new PaisControllers().cadastrar_pais)
+router.get('/ConsultarPais', new PaisControllers().consultar_pais)
 
 // // Rota - Registrar Vinhos
 router.post('/CadastrarVinhos', new VinhosControllers().registrar_vinhos)
 router.get('/ConsultarVinhos', new VinhosControllers().consultarVinhos)
 
-// Rota = Avaliação
-router.post('/CadastrarAvaliacao', new AvaliacaoControllers().avaliar_vinhos)
-router.get('/ConsultarAvaliacao', new AvaliacaoControllers().consultar_avaliacao)
+// Rota - Adicionar e consultar Vinhos
+router.post('/AdicionarVinho', new ListaControllers().lista_vinhos)
+router.get('/ConsultarLista', new ListaControllers().consultarVinhos)
+
+// Regiao - adicionar Regiao e consultar regiao
+router.post('/CadastrarRegiao', new RegiaoControllers().reg_regiao)
+router.get('/ConsultarRegiao', new RegiaoControllers().consultar_regiao)
 
 export default router;
