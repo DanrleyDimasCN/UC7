@@ -19,7 +19,7 @@ export default function CadastrarUsuario() {
                 return
             }
 
-            await apiLocal.post('/CadastrarUsuarios', {
+            await apiLocal.post('/CadastrarUsuario', {
                 nome,
                 email,
                 senha

@@ -2,7 +2,7 @@ import prismaClient  from "../../prisma";
 
 interface ListaVinhos {
     nome: string
-    IdUsuario: number
+    IdUsuario: string
     
 }
 

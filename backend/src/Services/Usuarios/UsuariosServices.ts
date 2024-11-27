@@ -1,5 +1,5 @@
 import prismaClient from "../../prisma"
-
+import { hash } from 'bcryptjs'
 interface CadUsuarios {
     nome: string
     sobrenome: string
@@ -9,13 +9,15 @@ interface CadUsuarios {
    
 }
 interface AlterarUsuarios {
-    id: number
+    id: string
     nome: string
     email: string
 }
 
 class UsuariosServices {
     async cadastrar_usuarios({nome, sobrenome, cpf, email, senha}: CadUsuarios) {
+
+        const senhaCriptografada = await hash(senha, 8)
 
         const cpfExiste = await prismaClient.usuario.findFirst({
             where: {
@@ -26,13 +28,13 @@ class UsuariosServices {
         if (cpfExiste) {
             throw new Error("CPF já está cadastrado")
         }
-        const resposta = await prismaClient.usuario.create({
+         await prismaClient.usuario.create({
             data: {
                 nome: nome,
                 sobrenome: sobrenome,
                 cpf: cpf,
                 email: email,
-                senha: senha
+                senha: senhaCriptografada
             }
         })
         return ({dados: 'Cadastro Efetuado Com Sucesso'})
@@ -51,8 +53,23 @@ class UsuariosServices {
         return resposta
     }
 
+    async consultarUsuariosUnico(id: string) {
+        const resposta = await prismaClient.usuario.findFirst({
+            where: {
+                id: id
+            },
+            select: {
+                nome: true,
+                email: true,
+                senha: true
+            }
+        })
+        return resposta
+      
+    }
+
     async alterarDadosUsuarios({id, nome, email}: AlterarUsuarios) {
-        const resposta = await prismaClient.usuario.update({
+        await prismaClient.usuario.update({
             where: {
                 id: id
             },
@@ -64,7 +81,7 @@ class UsuariosServices {
         })
     }
 
-    async apagarUsuarios(id: number) {
+    async apagarUsuarios(id: string) {
         await prismaClient.usuario.delete({
             where: {
                 id: id

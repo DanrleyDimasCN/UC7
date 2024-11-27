@@ -11,6 +11,7 @@ export default function AuthProvider({ children }) {
     const autenticado = !!tokenT
 
     async function loginEntrada(email, senha) {
+        console.log(email, senha);
         try {
             const resposta = await apiLocal.post('/LoginUsuarios', {
                 email,
@@ -20,7 +21,7 @@ export default function AuthProvider({ children }) {
             localStorage.setItem('@nome', JSON.stringify(resposta.data.nome))
             localStorage.setItem('@token', JSON.stringify(resposta.data.token))
             setTokenT(true)
-        } catch (error) {
+        } catch (err) {
                 toast.error('Erro ao inserir dados')
         }
     }

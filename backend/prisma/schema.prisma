@@ -25,7 +25,7 @@ model Admin {
 }
 
 model Usuario {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   nome String @db.VarChar(100)
   sobrenome String @db.VarChar(100)
   cpf String @unique  @db.VarChar(11)
@@ -38,7 +38,7 @@ model Usuario {
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
-  @@map("cadastro_usuarios")
+  @@map("cadastrar_usuarios")
 }
 
 model Minha_Lista {
@@ -47,7 +47,7 @@ model Minha_Lista {
 
   // Relacionamento entre Usuario e lista
   usuario Usuario @relation("UsuarioLista", fields: [IdUsuario], references: [id])
-  IdUsuario Int @unique
+  IdUsuario String @unique
 
   // Relacionamento entre Minha_lista e Vinhos
   vinhos Vinhos[] @relation("ListaVinhos")

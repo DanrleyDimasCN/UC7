@@ -18,8 +18,9 @@ export default function Inicio() {
         }
         try {
             await loginEntrada(email, senha)
-        } catch (error) {
-            toast.error('Erro ao inserir dados')
+            console.log(email, senha);
+        } catch (err) {
+           
         }
     }
 
