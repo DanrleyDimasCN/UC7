@@ -16,7 +16,7 @@ router.post('/CadastrarAdmin', new AdminControllers().cadastrar_admin)
 router.get('/ConsultarAdmin', new AdminControllers().consultarAdmin)
 
 // Rota - Cadastrar Usuarios
-router.post('/CadastrarUsuario', estaAutenticado, new UsuariosControllers().cadastro_usuarios)
+router.post('/CadastrarUsuarios', estaAutenticado, new UsuariosControllers().cadastro_usuarios)
 router.post('/ConsultarUsuariosUnico', estaAutenticado, new UsuariosControllers().consultarUsuariosUnico)
 router.get('/ConsultarUsuarios', estaAutenticado, new UsuariosControllers().consultarUsuarios)
 router.put('/AlterarDadosUsuarios', estaAutenticado, new UsuariosControllers().alterarDadosUsuarios)
@@ -30,6 +30,10 @@ router.get('/VerificaToken', estaAutenticado, new LoginUsuariosControllers().ver
 router.post('/CadastrarPais', new PaisControllers().cadastrar_pais)
 router.get('/ConsultarPais', new PaisControllers().consultar_pais)
 
+// Regiao - adicionar Regiao e consultar regiao
+router.post('/CadastrarRegiao', new RegiaoControllers().reg_regiao)
+router.get('/ConsultarRegiao', new RegiaoControllers().consultar_regiao)
+
 // // Rota - Registrar Vinhos
 router.post('/CadastrarVinhos', new VinhosControllers().registrar_vinhos)
 router.get('/ConsultarVinhos', new VinhosControllers().consultarVinhos)
@@ -38,8 +42,5 @@ router.get('/ConsultarVinhos', new VinhosControllers().consultarVinhos)
 router.post('/AdicionarVinho', new ListaControllers().lista_vinhos)
 router.get('/ConsultarLista', new ListaControllers().consultarVinhos)
 
-// Regiao - adicionar Regiao e consultar regiao
-router.post('/CadastrarRegiao', new RegiaoControllers().reg_regiao)
-router.get('/ConsultarRegiao', new RegiaoControllers().consultar_regiao)
 
 export default router;

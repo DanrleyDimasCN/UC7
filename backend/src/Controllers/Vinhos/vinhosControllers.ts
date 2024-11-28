@@ -18,6 +18,7 @@ class VinhosControllers {
 }
 
 async consultarVinhos(req: Request, res: Response) {
+    const {id} = req.body
     const vinhosServices = new VinhosServices()
     const resposta = await vinhosServices.consultarVinhos()
 
