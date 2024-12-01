@@ -49,7 +49,6 @@ class UsuariosControllers {
         const resposta = await enviardadosServices.apagarUsuarios(id)
         return res.json(resposta)
     }
-
     
 }
 

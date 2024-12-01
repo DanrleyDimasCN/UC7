@@ -54,6 +54,4 @@ class LoginServices {
     }
 }
 
-
-
 export { LoginServices }
