@@ -6,7 +6,7 @@ import { VinhosControllers } from './Controllers/Vinhos/vinhosControllers';
 import { AdminControllers } from './Controllers/Administrador/AdminControllers';
 import { PaisControllers } from './Controllers/Pais/paisControllers';
 import { RegiaoControllers } from './Controllers/Regiao/regiaoControllers';
-import { estaAutenticado } from './middleware/estaAutenticado';
+// import { estaAutenticado } from './middleware/estaAutenticado';
 import { LoginUsuariosControllers } from './Controllers/Login/LoginUsuariosControllers';
 
 const router = Router();
@@ -16,15 +16,15 @@ router.post('/CadastrarAdmin', new AdminControllers().cadastrar_admin)
 router.get('/ConsultarAdmin', new AdminControllers().consultarAdmin)
 
 // Rota - Cadastrar Usuarios
-router.post('/CadastrarUsuarios', estaAutenticado, new UsuariosControllers().cadastro_usuarios)
-router.post('/ConsultarUsuariosUnico', estaAutenticado, new UsuariosControllers().consultarUsuariosUnico)
-router.get('/ConsultarUsuarios', estaAutenticado, new UsuariosControllers().consultarUsuarios)
-router.put('/AlterarDadosUsuarios', estaAutenticado, new UsuariosControllers().alterarDadosUsuarios)
-router.delete('/ApagarUsuarios/:id', estaAutenticado, new UsuariosControllers().apagarUsuarios)
+router.post('/CadastrarUsuarios',  new UsuariosControllers().cadastro_usuarios)
+router.post('/ConsultarUsuariosUnico',  new UsuariosControllers().consultarUsuariosUnico)
+router.get('/ConsultarUsuarios',  new UsuariosControllers().consultarUsuarios)
+router.put('/AlterarDadosUsuarios',  new UsuariosControllers().alterarDadosUsuarios)
+router.delete('/ApagarUsuarios/:id',  new UsuariosControllers().apagarUsuarios)
 
 // Rota - Login Usuarios
 router.post('/LoginUsuarios', new LoginUsuariosControllers().loginUsuarios)
-router.get('/VerificaToken', estaAutenticado, new LoginUsuariosControllers().verificaToken)
+router.get('/VerificaToken',  new LoginUsuariosControllers().verificaToken)
 
 // Rota - Adicionar pais e consultar pais
 router.post('/CadastrarPais', new PaisControllers().cadastrar_pais)
