@@ -2,9 +2,8 @@ import prismaClient from "../../prisma"
 import { hash } from 'bcryptjs'
 interface CadUsuarios {
     nome: string
-    sobrenome: string
-    cpf: string
     email: string
+    cpf: string
     senha: string
    
 }
@@ -15,7 +14,7 @@ interface AlterarUsuarios {
 }
 
 class UsuariosServices {
-    async cadastrar_usuarios({nome, sobrenome, cpf, email, senha}: CadUsuarios) {
+    async cadastrar_usuarios({nome, email, cpf, senha}: CadUsuarios) {
 
         const senhaCriptografada = await hash(senha, 8)
 
@@ -31,9 +30,8 @@ class UsuariosServices {
          await prismaClient.usuario.create({
             data: {
                 nome: nome,
-                sobrenome: sobrenome,
-                cpf: cpf,
                 email: email,
+                cpf: cpf,
                 senha: senhaCriptografada
             }
         })
@@ -44,9 +42,13 @@ class UsuariosServices {
         const resposta = await prismaClient.usuario.findMany({
             select: {
                 nome:true,
-                sobrenome: true,
+                email: true,
                 cpf: true,
-                email: true
+                registrar: {
+                    select: {
+                        pseudoNome: true
+                    }
+                }
             }
         })
 

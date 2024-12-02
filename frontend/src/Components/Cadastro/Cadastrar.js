@@ -9,20 +9,23 @@ export default function Cadastrar() {
     const mudarTela = useNavigate()
     const [nome, setNome ] = useState('')
     const [email, setEmail ] = useState('')
+    const [cpf, setCpf ] = useState('')
     const [senha, setSenha ] = useState('')
 
     async function CadastroUsuarios(e) {
       try {
         e.preventDefault()
 
-        if(!nome || !email || !senha) {
+        if(!nome || !email || !cpf || !senha) {
             alert("Campo em Branco")
+            return
         }
 
         await apiLocal.post('/CadastrarUsuarios', {
             nome,
             email,
-            senha
+            senha,
+            cpf
         })
         toast.success('Cadastro Efetuado com Sucesso', {
             toastId: 'ToastId'
@@ -51,6 +54,13 @@ export default function Cadastrar() {
             placeholder='Digite o E-mail'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+            type="text"
+            placeholder='Digite o CPF'
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
             />
 
             <input
