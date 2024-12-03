@@ -23,7 +23,7 @@ class LoginServices {
         nome: usuario.nome,
         email: usuario.email
        },
-        process.env.JWT_SECRETO as string,
+        process.env.JWT_SECRETO,
         {
             subject: usuario.id,
             expiresIn: '8h'

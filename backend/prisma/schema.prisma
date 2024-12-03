@@ -38,7 +38,7 @@ model Usuario {
 
   // Relacionamento entre Usuario e Administrador
 
-  registrarId String @default("63818606-afb0-4202-a653-eaa64a61ae2c")
+  registrarId String @default("4ee8fb4a-86ef-4900-8af0-19cd3c6570c2")
   registrar Admin @relation("UsuarioAdmin", fields: [registrarId], references: [id])
 
   create_at DateTime? @default(now())

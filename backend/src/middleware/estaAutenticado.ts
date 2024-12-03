@@ -1,37 +1,31 @@
 import { Request, Response, NextFunction } from "express";
 
+
 import { verify } from 'jsonwebtoken'
 
 interface Payload {
     sub: string
 }
 
-export  function estaAutenticado (
+export function estaAutenticado(
     req: Request,
     res: Response,
     next: NextFunction
-){
+) {
+    const autToken = req.headers.authorization
+    if (!autToken) {
+        return res.json({ dados: 'Token Inválido' })
+    }
 
-    const autToken = req.headers.authorization?.split(" ")
-
-        if (!autToken) {
-            return res.status(401).json({ dados: 'Token Inválido' });
-        }
-    
-    
+    const [, token] = autToken.split(' ')
     try {
         const { sub } = verify(
-            autToken[1],
+            token,
             process.env.JWT_SECRETO
-        ) as Payload;
+        ) as Payload
         req.usuarioId = sub
-        console.log(req.usuarioId);
-
-        
         return next()
-    } catch(err) {
-        console.log("Token inválido:", err);
-        return res.status(401).json({ dados: 'Token Inválido' });
+    } catch (err) {
+        return res.json({ dados: 'Token Inválido' })
     }
 }
-
