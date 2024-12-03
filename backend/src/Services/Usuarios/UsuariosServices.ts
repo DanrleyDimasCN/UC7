@@ -60,6 +60,7 @@ class UsuariosServices {
     }
 
     async consultarUsuariosUnico(id: string) {
+        
         const resposta = await prismaClient.usuario.findFirst({
             where: {
                 id: id
@@ -70,6 +71,9 @@ class UsuariosServices {
                 senha: true
             }
         });
+
+        console.log(resposta);
+        
 
         return resposta;
     }

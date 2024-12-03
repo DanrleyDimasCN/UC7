@@ -11,7 +11,7 @@ export default function EditarUsuarios() {
     const [senha, setSenha] = useState('');
     
     const token = localStorage.getItem('@token');
-    console.log('Token:', token);
+    console.log(token);
 
     useEffect(() => {
         async function consultarDados() {
@@ -62,8 +62,8 @@ export default function EditarUsuarios() {
         }
 
         try {
-            console.log("Enviando dados para alteração:", { id, nome, email, senha });
-            const resposta = await apiLocal.put('/AlterarDadosUsuarios', {
+            console.log("Enviando dados para alteração:", {id ,nome, email, senha });
+            const resposta = await apiLocal.post('/ConsultarUsuariosUnico', {
                 id,
                 nome,
                 email,
