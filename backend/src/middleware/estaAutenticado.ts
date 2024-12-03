@@ -12,26 +12,28 @@ export function estaAutenticado (
     next: NextFunction
 ){
 
-    const autToken = req.headers.authorization
-    console.log(autToken);
+    const autToken = req.headers.authorization;
+    console.log("Authorization Header:", autToken);
     
     if (!autToken) {
-        return res.json({dados: 'Token Inválido'})
+        if (!autToken) {
+            return res.status(401).json({ dados: 'Token Inválido' });
+        }
+        
     }
     
     const [, token] = autToken.split(' ')
-    console.log(token);
     
     try {
         const { sub } = verify(
             token,
             process.env.JWT_SECRETO as string
-        ) as Payload
+        ) as Payload;
         req.usuarioId = sub
         return next()
     } catch(err) {
-        return res.json({dados: 'Token Inválido'})
-        
+        console.log("Token inválido:", err);
+        return res.status(401).json({ dados: 'Token Inválido' });
     }
 
 }

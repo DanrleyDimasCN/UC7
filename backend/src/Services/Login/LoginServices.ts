@@ -42,16 +42,22 @@ class LoginServices {
     }
 
     async verificaToken(id: string) {
-        const resposta = await prismaClient.usuario.findFirst({
+        const usuario = await prismaClient.usuario.findFirst({
             where: {
                 id: id
             },
             select: {
-                id: true
+                id: true, 
             }
-        })
-        return resposta
+        });
+    
+        if (!usuario) {
+            throw new Error('Usuário não encontrado');
+        }
+       
+        return { message: 'Token válido', usuario };
     }
+    
 }
 
 export { LoginServices }
