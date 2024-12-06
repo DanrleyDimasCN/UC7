@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <AuthProvider>
-      <div>
+      <div className='div-app-main'>
         <Rotas/>
         <ToastContainer autoClose={5000} />
       </div>
